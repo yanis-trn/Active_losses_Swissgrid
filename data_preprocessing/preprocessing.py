@@ -4,19 +4,19 @@ This file contains the preprocessing functions for the data.
 - adding features
 """
 
-from sklearn.model_selection import train_test_split, GridSearchCV, RandomizedSearchCV
-from sklearn.impute import SimpleImputer
-from sklearn.pipeline import FeatureUnion, make_pipeline, Pipeline
-from sklearn.compose import ColumnTransformer, make_column_selector
-from sklearn.preprocessing import (
-    LabelEncoder,
-    StandardScaler,
-    OneHotEncoder,
-    FunctionTransformer,
-)
-from sklearn.metrics import r2_score, mean_absolute_error, mean_absolute_percentage_error, mean_squared_error
-from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn import config_context
+# from sklearn.model_selection import train_test_split, GridSearchCV, RandomizedSearchCV
+# from sklearn.impute import SimpleImputer
+# from sklearn.pipeline import FeatureUnion, make_pipeline, Pipeline
+# from sklearn.compose import ColumnTransformer, make_column_selector
+# from sklearn.preprocessing import (
+#     LabelEncoder,
+#     StandardScaler,
+#     OneHotEncoder,
+#     FunctionTransformer,
+# )
+# from sklearn.metrics import r2_score, mean_absolute_error, mean_absolute_percentage_error, mean_squared_error
+# from sklearn.base import BaseEstimator, TransformerMixin
+# from sklearn import config_context
 
 import pandas as pd
 import numpy as np
