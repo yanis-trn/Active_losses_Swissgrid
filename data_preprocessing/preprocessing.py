@@ -86,98 +86,10 @@ def get_data(file_paths=None) -> pd.DataFrame:
 
     return df
 
-# def add_features(df:pd.DataFrame) -> pd.DataFrame:
-#     """
-#     This function adds features to the dataframe.
-#     :param df: dataframe
-#     :return: df: dataframe
-#     """
-#     def sin_transformer(period):
-#         return FunctionTransformer(lambda x: np.sin(x / period * 2 * np.pi))
-
-
-#     def cos_transformer(period):
-#         return FunctionTransformer(lambda x: np.cos(x / period * 2 * np.pi))
-
-#     country = "CH"
-#     regional_holidays = holidays.CH(
-#         years=df.Zeitstempel.dt.year.unique().tolist()
-#     )
-
-#     holiday_df = pd.DataFrame(
-#         {
-#             "holiday_name": list(regional_holidays.values()),
-#             "holiday_date": list(regional_holidays.keys()),
-#         }
-#     )
-    
-#     df = (
-#         df.assign(
-#             hour=lambda x: x.Zeitstempel.dt.hour + 1,
-#             month=lambda x: x.Zeitstempel.dt.month,
-#             quarter=lambda x: x.Zeitstempel.dt.quarter,
-#             wday=lambda x: x.Zeitstempel.dt.day_of_week + 1,
-#             weekend=lambda x: np.where(
-#                 x.Zeitstempel.dt.day_name().isin(["Sunday", "Saturday"]), 1, 0
-#             ).astype(str),
-#             work_hour=lambda x: np.where(
-#                 x["hour"].isin([19, 20, 21, 22, 23, 24, 0, 1, 2, 3, 4, 5, 6, 7]), 0, 1
-#             ).astype(str),
-#             week_hour=lambda x: x.Zeitstempel.dt.dayofweek * 24 + (x.Zeitstempel.dt.hour + 1),
-#             year=lambda x: x.Zeitstempel.dt.year,
-#             hour_counter=lambda x: np.arange(0, x.shape[0])
-#         )
-#         .assign(day=lambda x: x.Zeitstempel.dt.date)
-#         .merge(holiday_df, how="left", left_on="day", right_on="holiday_date")
-#         .drop(["holiday_date", "day"], axis=1)
-#         .assign(holiday_name = lambda x: np.where(x["holiday_name"].isna(), "none", x["holiday_name"]))
-#     )
-#     # hour in day
-#     df["hour_sin"] = sin_transformer(24).fit_transform(df["hour"].astype(float))
-#     df["hour_cos"] = cos_transformer(24).fit_transform(df["hour"].astype(float))
-
-#     # hour in week
-#     df["week_hour_sin"] = sin_transformer(168).fit_transform(df["week_hour"].astype(float))
-#     df["week_hour_cos"] = cos_transformer(168).fit_transform(df["week_hour"].astype(float))
-
-#     # month
-#     df["month_sin"] = sin_transformer(12).fit_transform(df["month"].astype(float))
-#     df["month_cos"] = cos_transformer(12).fit_transform(df["month"].astype(float))
-
-#     # quarter
-#     df["quarter_sin"] = sin_transformer(4).fit_transform(df["quarter"].astype(float))
-#     df["quarter_cos"] = cos_transformer(4).fit_transform(df["quarter"].astype(float))
-
-#     # weekday
-#     df["wday_sin"] = sin_transformer(7).fit_transform(df["wday"].astype(float))
-#     df["wday_cos"] = cos_transformer(7).fit_transform(df["wday"].astype(float))
-
-#     df = df.drop(["hour", "month", "quarter", "wday", "week_hour"], axis=1)
-
-#     days = df["Zeitstempel"].tolist()
-
-#     df = df.assign(date = lambda x: x.Zeitstempel.dt.date.astype(str))
-
-#     prior_cutoff = (days[23] - pd.Timedelta("1 day")).strftime('%Y-%m-%d')
-#     f"{prior_cutoff} 23:00"
-
-#     lag_lists = []
-
-#     for day_idx, day in enumerate(tqdm(days)):
-#         prior_cutoff = (day - pd.Timedelta("1 day")).strftime('%Y-%m-%d')
-
-#         lags = df.query("date <= @prior_cutoff").tail(168)["MWh"].tolist()
-#         lag_lists.append(lags)
-
-#     lag_df = pd.DataFrame(lag_lists).add_prefix("target_lag_")
-    
-#     df = pd.concat([df.drop("date", axis=1), lag_df], axis=1)
-
-#     return df
-
-
-
 class FeatureEngineer:
+    """
+    This class contains the feature engineering functions.
+    """
     def __init__(self, df: pd.DataFrame):
         self.df = df
 
@@ -258,6 +170,8 @@ class FeatureEngineer:
 
         lag_df = pd.DataFrame(lag_lists).add_prefix("target_lag_")
         self.df = pd.concat([self.df.drop("date", axis=1), lag_df], axis=1)
+        columns_to_move = ["Zeitstempel", "MWh"]
+        self.df = self.df[columns_to_move + [col for col in self.df.columns if col not in columns_to_move]]
 
     def execute_feature_engineering(self):
         self.add_date_features()
@@ -275,8 +189,12 @@ if __name__ == "__main__":
     # Test the get_data function
     df = get_data()
 
+    # Test the FeatureEngineer class
     feature_engineer = FeatureEngineer(df)
     df = feature_engineer.execute_feature_engineering()
-    # Display the first few rows of the resulting dataframe
+    
+    # Save the resulting dataframe
+    df.to_csv("data/processed/df_base_trainval_preprocessed.csv", index=False)
 
+    # Display the first few rows of the resulting dataframe
     print(df.head())
