@@ -31,12 +31,20 @@ import holidays
 from pickle import dump, load
 
 
-def get_data() -> pd.DataFrame:
+def get_data(file_paths=None) -> pd.DataFrame:
     """
     This function gets the data from the data folder and returns a merged dataframe.
+    :param file_paths: Dictionary of file paths.
     :return: df: dataframe
     """
-    active_losses = pd.read_csv("data/raw/Active-Losses-2019-2021.csv")
+    if file_paths is None:
+        file_paths = {
+            "active_losses": "data/raw/Active-Losses-2019-2021.csv",
+            "renewables": "data/raw/eq_renewables_2019-2021.csv",
+            "temperature": "data/raw/eq_temp_2019-2021.csv",
+            "ntc": "data/raw/NTC_2019_2021.csv",
+        }
+    active_losses = pd.read_csv(file_paths["active_losses"])
     
     active_losses.columns = active_losses.iloc[
     0,
@@ -54,14 +62,14 @@ def get_data() -> pd.DataFrame:
         .reset_index()
     )
     renewables = pd.read_csv(
-        "data/raw/eq_renewables_2019-2021.csv", parse_dates=["datetime"]
+        file_paths["renewables"], parse_dates=["datetime"]
     ).pipe(clean_columns)
 
     temperature = pd.read_csv(
-        "data/raw/eq_temp_2019-2021.csv", parse_dates=["datetime"]
+        file_paths["temperature"], parse_dates=["datetime"]
     ).assign(datetime=lambda x: x["datetime"] - pd.Timedelta("1 hour"))
 
-    ntc = pd.read_csv("data/raw/NTC_2019_2021.csv", parse_dates=["datetime"])
+    ntc = pd.read_csv(file_paths["ntc"], parse_dates=["datetime"])
 
     df = (
         active_losses
@@ -78,33 +86,115 @@ def get_data() -> pd.DataFrame:
 
     return df
 
-def add_features(df:pd.DataFrame) -> pd.DataFrame:
-    """
-    This function adds features to the dataframe.
-    :param df: dataframe
-    :return: df: dataframe
-    """
-    def sin_transformer(period):
-        return FunctionTransformer(lambda x: np.sin(x / period * 2 * np.pi))
+# def add_features(df:pd.DataFrame) -> pd.DataFrame:
+#     """
+#     This function adds features to the dataframe.
+#     :param df: dataframe
+#     :return: df: dataframe
+#     """
+#     def sin_transformer(period):
+#         return FunctionTransformer(lambda x: np.sin(x / period * 2 * np.pi))
 
 
-    def cos_transformer(period):
-        return FunctionTransformer(lambda x: np.cos(x / period * 2 * np.pi))
+#     def cos_transformer(period):
+#         return FunctionTransformer(lambda x: np.cos(x / period * 2 * np.pi))
 
-    country = "CH"
-    regional_holidays = holidays.CH(
-        years=df.Zeitstempel.dt.year.unique().tolist()
-    )
+#     country = "CH"
+#     regional_holidays = holidays.CH(
+#         years=df.Zeitstempel.dt.year.unique().tolist()
+#     )
 
-    holiday_df = pd.DataFrame(
-        {
-            "holiday_name": list(regional_holidays.values()),
-            "holiday_date": list(regional_holidays.keys()),
-        }
-    )
+#     holiday_df = pd.DataFrame(
+#         {
+#             "holiday_name": list(regional_holidays.values()),
+#             "holiday_date": list(regional_holidays.keys()),
+#         }
+#     )
     
-    df = (
-        df.assign(
+#     df = (
+#         df.assign(
+#             hour=lambda x: x.Zeitstempel.dt.hour + 1,
+#             month=lambda x: x.Zeitstempel.dt.month,
+#             quarter=lambda x: x.Zeitstempel.dt.quarter,
+#             wday=lambda x: x.Zeitstempel.dt.day_of_week + 1,
+#             weekend=lambda x: np.where(
+#                 x.Zeitstempel.dt.day_name().isin(["Sunday", "Saturday"]), 1, 0
+#             ).astype(str),
+#             work_hour=lambda x: np.where(
+#                 x["hour"].isin([19, 20, 21, 22, 23, 24, 0, 1, 2, 3, 4, 5, 6, 7]), 0, 1
+#             ).astype(str),
+#             week_hour=lambda x: x.Zeitstempel.dt.dayofweek * 24 + (x.Zeitstempel.dt.hour + 1),
+#             year=lambda x: x.Zeitstempel.dt.year,
+#             hour_counter=lambda x: np.arange(0, x.shape[0])
+#         )
+#         .assign(day=lambda x: x.Zeitstempel.dt.date)
+#         .merge(holiday_df, how="left", left_on="day", right_on="holiday_date")
+#         .drop(["holiday_date", "day"], axis=1)
+#         .assign(holiday_name = lambda x: np.where(x["holiday_name"].isna(), "none", x["holiday_name"]))
+#     )
+#     # hour in day
+#     df["hour_sin"] = sin_transformer(24).fit_transform(df["hour"].astype(float))
+#     df["hour_cos"] = cos_transformer(24).fit_transform(df["hour"].astype(float))
+
+#     # hour in week
+#     df["week_hour_sin"] = sin_transformer(168).fit_transform(df["week_hour"].astype(float))
+#     df["week_hour_cos"] = cos_transformer(168).fit_transform(df["week_hour"].astype(float))
+
+#     # month
+#     df["month_sin"] = sin_transformer(12).fit_transform(df["month"].astype(float))
+#     df["month_cos"] = cos_transformer(12).fit_transform(df["month"].astype(float))
+
+#     # quarter
+#     df["quarter_sin"] = sin_transformer(4).fit_transform(df["quarter"].astype(float))
+#     df["quarter_cos"] = cos_transformer(4).fit_transform(df["quarter"].astype(float))
+
+#     # weekday
+#     df["wday_sin"] = sin_transformer(7).fit_transform(df["wday"].astype(float))
+#     df["wday_cos"] = cos_transformer(7).fit_transform(df["wday"].astype(float))
+
+#     df = df.drop(["hour", "month", "quarter", "wday", "week_hour"], axis=1)
+
+#     days = df["Zeitstempel"].tolist()
+
+#     df = df.assign(date = lambda x: x.Zeitstempel.dt.date.astype(str))
+
+#     prior_cutoff = (days[23] - pd.Timedelta("1 day")).strftime('%Y-%m-%d')
+#     f"{prior_cutoff} 23:00"
+
+#     lag_lists = []
+
+#     for day_idx, day in enumerate(tqdm(days)):
+#         prior_cutoff = (day - pd.Timedelta("1 day")).strftime('%Y-%m-%d')
+
+#         lags = df.query("date <= @prior_cutoff").tail(168)["MWh"].tolist()
+#         lag_lists.append(lags)
+
+#     lag_df = pd.DataFrame(lag_lists).add_prefix("target_lag_")
+    
+#     df = pd.concat([df.drop("date", axis=1), lag_df], axis=1)
+
+#     return df
+
+
+
+class FeatureEngineer:
+    def __init__(self, df: pd.DataFrame):
+        self.df = df
+
+    def sin_transformer(self, x, period):
+        return np.sin(x / period * 2 * np.pi)
+
+    def cos_transformer(self, x, period):
+        return np.cos(x / period * 2 * np.pi)
+
+    def add_date_features(self):
+        self.df = self.df.assign(
+            day=lambda x: x.Zeitstempel.dt.date,
+            date=lambda x: x.Zeitstempel.dt.date.astype(str)
+        )
+
+    def add_time_features(self):
+        self.df = self.df.assign(
             hour=lambda x: x.Zeitstempel.dt.hour + 1,
             month=lambda x: x.Zeitstempel.dt.month,
             quarter=lambda x: x.Zeitstempel.dt.quarter,
@@ -119,60 +209,74 @@ def add_features(df:pd.DataFrame) -> pd.DataFrame:
             year=lambda x: x.Zeitstempel.dt.year,
             hour_counter=lambda x: np.arange(0, x.shape[0])
         )
-        .assign(day=lambda x: x.Zeitstempel.dt.date)
-        .merge(holiday_df, how="left", left_on="day", right_on="holiday_date")
-        .drop(["holiday_date", "day"], axis=1)
-        .assign(holiday_name = lambda x: np.where(x["holiday_name"].isna(), "none", x["holiday_name"]))
-    )
-    # hour in day
-    df["hour_sin"] = sin_transformer(24).fit_transform(df["hour"].astype(float))
-    df["hour_cos"] = cos_transformer(24).fit_transform(df["hour"].astype(float))
 
-    # hour in week
-    df["week_hour_sin"] = sin_transformer(168).fit_transform(df["week_hour"].astype(float))
-    df["week_hour_cos"] = cos_transformer(168).fit_transform(df["week_hour"].astype(float))
+    def add_holiday_features(self):
+        country = "CH"
+        regional_holidays = holidays.CH(
+            years=self.df.Zeitstempel.dt.year.unique().tolist()
+        )
 
-    # month
-    df["month_sin"] = sin_transformer(12).fit_transform(df["month"].astype(float))
-    df["month_cos"] = cos_transformer(12).fit_transform(df["month"].astype(float))
+        holiday_df = pd.DataFrame(
+            {
+                "holiday_name": list(regional_holidays.values()),
+                "holiday_date": list(regional_holidays.keys()),
+            }
+        )
 
-    # quarter
-    df["quarter_sin"] = sin_transformer(4).fit_transform(df["quarter"].astype(float))
-    df["quarter_cos"] = cos_transformer(4).fit_transform(df["quarter"].astype(float))
+        self.df = (
+            self.df.merge(holiday_df, how="left", left_on="day", right_on="holiday_date")
+            .drop(["holiday_date", "day"], axis=1)
+            .assign(holiday_name=lambda x: np.where(x["holiday_name"].isna(), "none", x["holiday_name"]))
+        )
 
-    # weekday
-    df["wday_sin"] = sin_transformer(7).fit_transform(df["wday"].astype(float))
-    df["wday_cos"] = cos_transformer(7).fit_transform(df["wday"].astype(float))
+    def add_cyclical_features(self):
+        self.df["hour_sin"] = self.sin_transformer(self.df["hour"].astype(float), 24)
+        self.df["hour_cos"] = self.cos_transformer(self.df["hour"].astype(float), 24)
 
-    df = df.drop(["hour", "month", "quarter", "wday", "week_hour"], axis=1)
+        self.df["week_hour_sin"] = self.sin_transformer(self.df["week_hour"].astype(float), 168)
+        self.df["week_hour_cos"] = self.cos_transformer(self.df["week_hour"].astype(float), 168)
 
-    days = df["Zeitstempel"].tolist()
+        self.df["month_sin"] = self.sin_transformer(self.df["month"].astype(float), 12)
+        self.df["month_cos"] = self.cos_transformer(self.df["month"].astype(float), 12)
 
-    df = df.assign(date = lambda x: x.Zeitstempel.dt.date.astype(str))
+        self.df["quarter_sin"] = self.sin_transformer(self.df["quarter"].astype(float), 4)
+        self.df["quarter_cos"] = self.cos_transformer(self.df["quarter"].astype(float), 4)
 
-    prior_cutoff = (days[23] - pd.Timedelta("1 day")).strftime('%Y-%m-%d')
-    f"{prior_cutoff} 23:00"
+        self.df["wday_sin"] = self.sin_transformer(self.df["wday"].astype(float), 7)
+        self.df["wday_cos"] = self.cos_transformer(self.df["wday"].astype(float), 7)
 
-    lag_lists = []
+        self.df = self.df.drop(["hour", "month", "quarter", "wday", "week_hour"], axis=1)
 
-    for day_idx, day in enumerate(tqdm(days)):
-        prior_cutoff = (day - pd.Timedelta("1 day")).strftime('%Y-%m-%d')
+    def add_lag_features(self):
+        days = self.df["Zeitstempel"].tolist()
+        lag_lists = []
 
-        lags = df.query("date <= @prior_cutoff").tail(168)["MWh"].tolist()
-        lag_lists.append(lags)
+        for day_idx, day in enumerate(tqdm(days)):
+            prior_cutoff = (day - pd.Timedelta("1 day")).strftime('%Y-%m-%d')
+            lags = self.df.query("date <= @prior_cutoff").tail(168)["MWh"].tolist()
+            lag_lists.append(lags)
 
-    lag_df = pd.DataFrame(lag_lists).add_prefix("target_lag_")
-    
-    df = pd.concat([df.drop("date", axis=1), lag_df], axis=1)
+        lag_df = pd.DataFrame(lag_lists).add_prefix("target_lag_")
+        self.df = pd.concat([self.df.drop("date", axis=1), lag_df], axis=1)
 
-    return df
+    def execute_feature_engineering(self):
+        self.add_date_features()
+        self.add_time_features()
+        self.add_holiday_features()
+        self.add_cyclical_features()
+        self.add_lag_features()
+
+        return self.df
+
+
 
 
 if __name__ == "__main__":
     # Test the get_data function
     df = get_data()
 
-    df = add_features(df)
+    feature_engineer = FeatureEngineer(df)
+    df = feature_engineer.execute_feature_engineering()
     # Display the first few rows of the resulting dataframe
 
     print(df.head())
