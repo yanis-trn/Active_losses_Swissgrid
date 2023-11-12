@@ -4,16 +4,15 @@ This file contains utility functions for the model.
 
 import pandas as pd
 from sklearn.model_selection import TimeSeriesSplit
-# from pickle import dump, load
 from sklearn.metrics import mean_absolute_error
 
-def load_processed_data(file_path="data/processed/df_base_trainval_preprocessed.csv"):
+def load_processed_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     This function loads the processed data.
     :param file_path: path to processed data
     :return: X, y
     """
-    df = pd.read_csv(file_path, parse_dates=["Zeitstempel"])
+    df['Zeitstempel'] = pd.to_datetime(df['Zeitstempel'])
     X, y = df.drop(["Zeitstempel", "MWh"], axis=1), df["MWh"]
     return X, y
 

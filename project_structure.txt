@@ -1,0 +1,36 @@
+.
+├── README.md
+├── __init__.py
+├── __pycache__
+│   ├── parameter_tuning.cpython-311.pyc
+│   ├── pipeline.cpython-311.pyc
+│   ├── preprocessing.cpython-311.pyc
+│   ├── training.cpython-311.pyc
+│   └── util.cpython-311.pyc
+├── data
+│   ├── processed
+│   │   └── df_base_trainval_preprocessed.csv
+│   └── raw
+│       ├── Active-Losses-2019-2021.csv
+│       ├── NTC_2019_2021.csv
+│       ├── data_explanation.md
+│       ├── eq_renewables_2019-2021.csv
+│       └── eq_temp_2019-2021.csv
+├── environment.yml
+├── main.py
+├── notebooks
+│   ├── 0_Data Preprocessing Base.ipynb
+│   └── 2_ElasticNet.ipynb
+├── parameter_tuning.py
+├── pipeline.py
+├── preprocessing.py
+├── project_structure.txt
+├── saved_models
+│   ├── EN_hyperparams.pickle
+│   ├── en_trainval.pickle
+│   ├── en_tuning_optuna.csv
+│   └── sklearn_base_pipeline_unfitted.pickle
+├── training.py
+└── util.py
+
+7 directories, 27 files
