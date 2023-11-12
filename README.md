@@ -15,7 +15,8 @@ Python 3.11.5 was used for this project
 - conda activate active_loss
 
 ## Structure of the code
-‘‘‘
+
+```
 ├── README.md
 ├── Approach.md
 ├── __init__.py
@@ -44,10 +45,12 @@ Python 3.11.5 was used for this project
 └── notebooks
    ├── 0_Data Preprocessing Base.ipynb
    └── 2_ElasticNet.ipynb
-‘‘‘
+```
+
 
 ## Data
-‘‘‘
+```
+
 ├── data
 │   ├── processed
 │   │   └── df_base_trainval_preprocessed.csv
@@ -57,5 +60,6 @@ Python 3.11.5 was used for this project
 │       ├── data_explanation.md
 │       ├── eq_renewables_2019-2021.csv
 │       └── eq_temp_2019-2021.csv
-‘‘‘
+```
+
 

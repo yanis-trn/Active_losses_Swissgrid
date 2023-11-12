@@ -24,8 +24,8 @@ if __name__ == '__main__':
 
         
     # prepocess the data and save it in csv file
-    # df = preprocess_data()
-    df = pd.read_csv("data/processed/df_base_trainval_preprocessed.csv")
+    df = preprocess_data()
+    # df = pd.read_csv("data/processed/df_base_trainval_preprocessed.csv")
 
     # Load preprocessed data
     X, y = load_processed_data(df)
