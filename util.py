@@ -5,6 +5,8 @@ This file contains utility functions for the model.
 import pandas as pd
 from sklearn.model_selection import TimeSeriesSplit
 from sklearn.metrics import mean_absolute_error
+from pickle import dump, load
+import optuna
 
 def load_processed_data(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -44,3 +46,31 @@ def evaluate_model(y_true, y_pred):
     :return: evaluation metric
     """
     return mean_absolute_error(y_true, y_pred)
+
+def analyze_optuna_study(study):
+    # Get pruned and complete trials
+    pruned_trials = study.get_trials(deepcopy=False, states=[optuna.trial.TrialState.PRUNED])
+    complete_trials = study.get_trials(deepcopy=False, states=[optuna.trial.TrialState.COMPLETE])
+
+    # Access the best trial
+    best_trial = study.best_trial
+
+    # Access the minimal MAE obtained during the training and the best hyperparameters
+    min_mae = best_trial.value
+    best_params = study.best_params
+
+    # Display the study statistics
+    print("\nStudy statistics: ")
+    print(f"  Number of finished trials: {len(study.trials)}")
+    print(f"  Number of pruned trials: {len(pruned_trials)}")
+    print(f"  Number of complete trials: {len(complete_trials)}")
+
+    print(f"Minimal MAE: {min_mae}")
+    print(best_params)
+
+    # Save trials DataFrame to CSV
+    study.trials_dataframe().to_csv("saved_models/trials_tuning_optuna.csv", index=False)
+
+    # Save best hyperparameters to a pickle file
+    with open("saved_models/best_model_hyperparams.pickle", 'wb') as file:
+        dump(study.best_params, file)

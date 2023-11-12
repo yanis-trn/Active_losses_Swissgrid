@@ -26,10 +26,10 @@ def get_data(file_paths=None) -> pd.DataFrame:
     """
     if file_paths is None:
         file_paths = {
-            "active_losses": "data/raw/Active-Losses-2019-2021.csv",
-            "renewables": "data/raw/eq_renewables_2019-2021.csv",
-            "temperature": "data/raw/eq_temp_2019-2021.csv",
-            "ntc": "data/raw/NTC_2019_2021.csv",
+            "active_losses": "data/raw/Active-Losses.csv",
+            "renewables": "data/raw/eq_renewables.csv",
+            "temperature": "data/raw/eq_temp.csv",
+            "ntc": "data/raw/NTC.csv",
         }
     active_losses = pd.read_csv(file_paths["active_losses"])
     
@@ -170,15 +170,18 @@ class FeatureEngineer:
         return self.df
 
 
-def preprocess_data():
+def preprocess_data(file_paths=None):
     # Get the data
-    df = get_data()
+    df = get_data(file_paths)
 
     # Feature engineering
     feature_engineer = FeatureEngineer(df)
     df = feature_engineer.execute_feature_engineering()
 
     # Save the resulting dataframe
-    df.to_csv("data/processed/df_base_trainval_preprocessed.csv", index=False)
+    df.to_csv("data/processed/df_preprocessed.csv", index=False)
 
     return df
+
+if __name__ == "__main__":
+    preprocess_data()
