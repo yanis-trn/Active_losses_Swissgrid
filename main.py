@@ -2,9 +2,7 @@
 Main file for the project
 """
 
-# main.py
 from util import load_processed_data, create_time_series_splits, train_preprocessor
-# from src.visualization import visualize_splits
 from training import train_and_evaluate_model, train_final
 from preprocessing import preprocess_data
 from parameter_tuning import objective
@@ -21,10 +19,10 @@ import pandas as pd
 
 
 if __name__ == '__main__':
-
-        
+  
     # prepocess the data and save it in csv file
     df = preprocess_data()
+    # Alternatively, load alerady preprocessed data
     # df = pd.read_csv("data/processed/df_base_trainval_preprocessed.csv")
 
     # Load preprocessed data
@@ -65,13 +63,14 @@ if __name__ == '__main__':
     print(f"Minimal MAE: {min_mae}")
     print(best_params)
 
-    study.trials_dataframe().to_csv("saved_models/en_tuning_optuna.csv", index=False)
+    study.trials_dataframe().to_csv("saved_models/trials_tuning_optuna.csv", index=False)
 
-    with open("saved_models/EN_hyperparams.pickle", 'wb') as file:
+    with open("saved_models/best_model_hyperparams.pickle", 'wb') as file:
         dump(study.best_params, file)
 
     # Train the final model with the best hyperparameters on the entire dataset
     final_model = train_final(X, y, preprocessor, best_params)
 
-    with open("saved_models/en_trainval.pickle", 'wb') as file:
+    # Save the final model for later use
+    with open("saved_models/final_model.pickle", 'wb') as file:
         dump(final_model, file)
