@@ -3,7 +3,7 @@
 ## Main steps for solving the task:
 
 1. Understand the nature of the data and the objective
-2. Understand the approach of the group 3 to solve the tas
+2. Understand the approach of the group 3 to solve the task
 3. Note all the functionalities implemented 
 4. Define the structure of the code
 5. Implement the various functionalities in the various submodules and test them against original notebook
@@ -18,7 +18,7 @@
 Allows to manage project dependencies and packages properly. An environment.yaml file is created for easily exporting the active_loss virtual environment.
 
 ### 2.Setting up version control
-Setting up of a git repository with best parctices, including commits with relevant messages.
+Setting up of a git repository with best practices, including commits with relevant messages.
 
 ### 3.Code structure
 **file structure:** establishing a clear and intuitive file structure with related files grouped together.
