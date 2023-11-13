@@ -7,26 +7,53 @@ dependencies:
   - asttokens=2.4.1=pyhd8ed1ab_0
   - backports=1.0=pyhd8ed1ab_3
   - backports.functools_lru_cache=1.6.5=pyhd8ed1ab_0
+  - blas=1.0=openblas
+  - bottleneck=1.3.5=py311hb9e55a9_0
+  - brotli=1.0.9=hca72f7f_7
+  - brotli-bin=1.0.9=hca72f7f_7
   - bzip2=1.0.8=h1de35cc_0
-  - ca-certificates=2023.7.22=h8857fd0_0
+  - ca-certificates=2023.08.22=hecd8cb5_0
   - comm=0.1.4=pyhd8ed1ab_0
   - debugpy=1.8.0=py311hdf8f085_1
   - decorator=5.1.1=pyhd8ed1ab_0
   - exceptiongroup=1.1.3=pyhd8ed1ab_0
   - executing=2.0.1=pyhd8ed1ab_0
+  - freetype=2.12.1=hd8bbffd_0
+  - giflib=5.2.1=h6c40b1e_3
   - importlib-metadata=6.8.0=pyha770c72_0
   - importlib_metadata=6.8.0=hd8ed1ab_0
   - ipykernel=6.26.0=pyh3cd1d5f_0
   - ipython=8.17.2=pyh31c8845_0
   - jedi=0.19.1=pyhd8ed1ab_0
+  - jpeg=9e=h6c40b1e_1
   - jupyter_client=8.6.0=pyhd8ed1ab_0
   - jupyter_core=5.5.0=py311h6eed73b_0
+  - lcms2=2.12=hf1fd2bf_0
+  - lerc=3.0=he9d5cce_0
+  - libbrotlicommon=1.0.9=hca72f7f_7
+  - libbrotlidec=1.0.9=hca72f7f_7
+  - libbrotlienc=1.0.9=hca72f7f_7
   - libcxx=16.0.6=hd57cbcb_0
+  - libdeflate=1.17=hb664fd8_1
   - libffi=3.4.4=hecd8cb5_0
+  - libgfortran=5.0.0=11_3_0_hecd8cb5_28
+  - libgfortran5=11.3.0=h9dfd629_28
+  - libopenblas=0.3.21=h54e7dc3_0
+  - libpng=1.6.39=h6c40b1e_0
   - libsodium=1.0.18=hbcb3906_1
+  - libtiff=4.5.1=hcec6c5f_0
+  - libwebp=1.3.2=hf6ce154_0
+  - libwebp-base=1.3.2=h6c40b1e_0
+  - llvm-openmp=14.0.6=h0dcd299_0
+  - lz4-c=1.9.4=hcec6c5f_0
+  - matplotlib-base=3.8.0=py311h41a4f6b_0
   - matplotlib-inline=0.1.6=pyhd8ed1ab_0
+  - munkres=1.1.4=py_0
   - ncurses=6.4=hcec6c5f_0
   - nest-asyncio=1.5.8=pyhd8ed1ab_0
+  - numexpr=2.8.7=py311h91b6869_0
+  - numpy-base=1.26.0=py311hb3ec012_0
+  - openjpeg=2.4.0=h66ea3da_0
   - openssl=3.1.4=hd75f5a5_0
   - packaging=23.2=pyhd8ed1ab_0
   - parso=0.8.3=pyhd8ed1ab_0
@@ -42,9 +69,12 @@ dependencies:
   - pygments=2.16.1=pyhd8ed1ab_0
   - python=3.11.5=hf27a42d_0
   - python-dateutil=2.8.2=pyhd8ed1ab_0
+  - python-tzdata=2023.3=pyhd3eb1b0_0
   - python_abi=3.11=2_cp311
+  - pytz=2023.3.post1=py311hecd8cb5_0
   - pyzmq=25.1.1=py311he3804a1_2
   - readline=8.2=hca72f7f_0
+  - seaborn=0.12.2=py311hecd8cb5_0
   - setuptools=68.0.0=py311hecd8cb5_0
   - six=1.16.0=pyh6c4a22f_0
   - sqlite=3.41.2=h6c40b1e_0
@@ -54,12 +84,14 @@ dependencies:
   - traitlets=5.13.0=pyhd8ed1ab_0
   - typing-extensions=4.8.0=hd8ed1ab_0
   - typing_extensions=4.8.0=pyha770c72_0
+  - tzdata=2023c=h04d1e81_0
   - wcwidth=0.2.9=pyhd8ed1ab_0
   - wheel=0.41.2=py311hecd8cb5_0
   - xz=5.4.2=h6c40b1e_0
   - zeromq=4.3.5=h93d8f39_0
   - zipp=3.17.0=pyhd8ed1ab_0
   - zlib=1.2.13=h4dc903c_0
+  - zstd=1.5.5=hc035e20_0
   - pip:
       - alembic==1.12.1
       - anyio==4.0.0
@@ -134,7 +166,6 @@ dependencies:
       - pycparser==2.21
       - pyparsing==3.1.1
       - python-json-logger==2.0.7
-      - pytz==2023.3.post1
       - pyyaml==6.0.1
       - qtconsole==5.5.0
       - qtpy==2.4.1
@@ -159,7 +190,6 @@ dependencies:
       - tqdm==4.66.1
       - typeguard==4.1.4
       - types-python-dateutil==2.8.19.14
-      - tzdata==2023.3
       - uri-template==1.3.0
       - urllib3==2.0.7
       - webcolors==1.13

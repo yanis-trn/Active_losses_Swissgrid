@@ -4,11 +4,13 @@ This file contains the training code for the model.
 
 from sklearn.linear_model import ElasticNet
 from util import train_preprocessor, evaluate_model
+from visualization import visualize_predictions
+from pickle import dump, load
 import pandas as pd
 
 def train_final(X, y, preprocessor, params):
     """
-    This function trains the final model.
+    This function trains the final model for later use on other data.
     :param X: features
     :param y: target
     :param preprocessor: preprocessor pipeline
@@ -25,6 +27,9 @@ def train_final(X, y, preprocessor, params):
     # Train model
     model = ElasticNet(**params)
     model.fit(X, y)
+
+    with open("saved_models/final_model.pickle", 'wb') as file:
+        dump(model, file)
 
     return model
 
@@ -57,10 +62,9 @@ def train_and_evaluate_model(X_train, X_test, y_train, y_test, preprocessor, par
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
 
+
     # Calculate MAE for each fol
     evaluation_score = evaluate_model(y_test, y_pred)
 
     return evaluation_score
 
-if __name__ == "__main__":
-    print("This file contains the training code for the model.")

@@ -6,7 +6,9 @@ import pandas as pd
 from sklearn.model_selection import TimeSeriesSplit
 from sklearn.metrics import mean_absolute_error
 from pickle import dump, load
+from plotnine import *
 import optuna
+
 
 def load_processed_data(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -29,6 +31,7 @@ def create_time_series_splits(X, n_splits=5):
     splits = list(tscv.split(X))
     return splits
 
+
 def train_preprocessor(X_train, preprocessor):
     """
     This function fits the preprocessor on the training data.
@@ -48,6 +51,12 @@ def evaluate_model(y_true, y_pred):
     return mean_absolute_error(y_true, y_pred)
 
 def analyze_optuna_study(study):
+    """
+    This function analyzes the Optuna study.
+    :param study: Optuna study
+    :return: None
+    """
+
     # Get pruned and complete trials
     pruned_trials = study.get_trials(deepcopy=False, states=[optuna.trial.TrialState.PRUNED])
     complete_trials = study.get_trials(deepcopy=False, states=[optuna.trial.TrialState.COMPLETE])

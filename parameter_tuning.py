@@ -30,5 +30,3 @@ def objective(trial, X, y, preprocessor, splits):
 
     return np.mean(mae_cv_list)
 
-if __name__ == "__main__":
-    print("This file contain objective function for hyperparameter tuning using optuna.")
