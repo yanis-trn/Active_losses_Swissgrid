@@ -1,18 +1,16 @@
 # Active_losses_Swissgrid
 
 ## Overview
-Swissgrid took part to a Machine Learning Hackaton with the goal of predicting the active losses for the grid. The originals notebooks can be found here [here](https://github.com/Swissgrid-AG-External/energydatahackdays23/tree/d5f88f3ff117ffcaafd43167e6357f7a5bfbc4a2/group3). The results were very impressive and many stakeholders were keen to see the results on internal data instead of old open data.
-
 This repository corresponds to a proposal of solution for the ML Engineer Challenge that can be found [here](https://github.com/Swissgrid-AG-External/coding_challenges/blob/main/ml_engineer/intern/README.md). The 3 main goals of this challenge are the followings:
 1. write a markdown file (Approach.md) to describe the approach taken
-2. Refactor the notebooks into clean, well-organized pyhton file while preserving existing functionnalities. The primary goal was to enhance code structure, readability, and maintainability.
+2. Refactor the notebooks into clean, well-organized pyhton file while preserving existing functionalities. The primary goal was to enhance code structure, readability, and maintainability.
 3. Change or add 1 or 2 functions to the script
 
-The proposed solution offers a more understandable and easy to use code that achieves the following:
-- loading of the data 
-- preprocessing of the data and addition of useful features (time, date, holidays, cyclical_features, lag features)
+The proposed solution offers a more understandable and easy-to-use code that achieves the following:
+- loading the data 
+- preprocessing the data and addition of useful features (time, date, holidays, cyclical_features, lag features)
 - finetuning ElasticNet model 
-- training of the model and visualization of predictions over test data 
+- training the model and visualization of predictions over test data 
 - training model on entire dataset with best hyperparameters and saving it for later use
 
 ## Installation
