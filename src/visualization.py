@@ -70,7 +70,7 @@ def visualize_splits(splits, df, y):
             p.save(filename=f"plots/split_{split_idx + 1}.png", format="png", verbose=False)
             # p.draw()
             # display(p)
-
+    print("Plots of splits saved to plots/ folder.")
 
 def visualize_model_predictions(splits, X, y, preprocessor, params):
     """

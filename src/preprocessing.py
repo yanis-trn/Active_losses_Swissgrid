@@ -10,11 +10,10 @@ import numpy as np
 from plotnine import *
 from mizani.formatters import comma_format, percent_format, currency_format
 from datetime import datetime, timedelta, date
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 from skimpy import clean_columns
 from IPython.display import clear_output, display
 import holidays
-
 from pickle import dump, load
 
 
@@ -161,11 +160,13 @@ class FeatureEngineer:
         self.df = self.df[columns_to_move + [col for col in self.df.columns if col not in columns_to_move]]
 
     def execute_feature_engineering(self):
+        print("Preprocessing data...")
         self.add_date_features()
         self.add_time_features()
         self.add_holiday_features()
         self.add_cyclical_features()
         self.add_lag_features()
+        print("Preprocessing finished.")
 
         return self.df
 

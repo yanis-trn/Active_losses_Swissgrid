@@ -75,7 +75,7 @@ def analyze_optuna_study(study):
     print(f"  Number of complete trials: {len(complete_trials)}")
 
     print(f"Minimal MAE: {min_mae}")
-    print(best_params)
+    print(f"Best parameters after finetuning the model are: {best_params}")
 
     # Save trials DataFrame to CSV
     study.trials_dataframe().to_csv("saved_models/trials_tuning_optuna.csv", index=False)
@@ -83,3 +83,4 @@ def analyze_optuna_study(study):
     # Save best hyperparameters to a pickle file
     with open("saved_models/best_model_hyperparams.pickle", 'wb') as file:
         dump(study.best_params, file)
+    print("Best hyperparameters saved to saved_models/best_model_hyperparams.pickle.")

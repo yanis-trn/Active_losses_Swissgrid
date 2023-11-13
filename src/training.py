@@ -29,6 +29,7 @@ def train_final(X, y, preprocessor, params):
 
     with open("saved_models/final_model.pickle", 'wb') as file:
         dump(model, file)
+    print("Final model saved to saved_models/ folder.")
 
     return model
 
