@@ -4,25 +4,25 @@
 
 1. Understand the nature of the data and the objective
 2. Understand the approach of the group 3 to solve the tas
-3. Note all the functionnalities implemented 
+3. Note all the functionalities implemented 
 4. Define the structure of the code
-5. Implement the various functionnalities in the various submodules and test them against original notebook
+5. Implement the various functionalities in the various submodules and test them against original notebook
 6. Write the main file to allow to run the entire process 
 7. Rewrite the code for feature engineering into a clearer class 
 8. Add a function to visualize forecasting
 
 
-## Main good practices to follow:
+## Structural aspects:
 
 ### 1.Setting up a virtual environment 
 Allows to manage project dependencies and packages properly. An environment.yaml file is created for easily exporting the active_loss virtual environment.
 
 ### 2.Setting up version control
-Setting up of a git repository with best parctices, including rergular commits with relevant messages.
+Setting up of a git repository with best parctices, including commits with relevant messages.
 
 ### 3.Code structure
 **file structure:** establishing a clear and intuitive file structure with related files grouped together.
-**modularization:** Brezk down the previous notebook code into modular compenents. The goal is to improve code organization, readibility and reusability
+**modularization:** Break down the previous notebook code into modular compenents. The goal is to improve code organization, readibility and reusability
 
 ### 4.Code documentation
 **comments in the code:** ensure that the main different steps in the code are commented and write small description for each function, class for easier understanding 
@@ -31,6 +31,10 @@ Setting up of a git repository with best parctices, including rergular commits w
 ### 5.Implement logging
 Ensure to save important metrics, models, hyperparameters and other relevant details. 
 Output informational messages during the execution of the program for better undesrtanding and debugging
+
+## ML frameworks:
+
+TODO
 
 ## Features added:
 
@@ -46,18 +50,18 @@ Different stakeholders being higly interested in the predictions from this model
 Here is an example of plot:
 ![Example plot](plots/line_plot_3.png)
 
-## Potential additionnal work:
-Due to time constraint some good practices could not be implemented. Here is a non-exhaustive list of the the future work that could be done to ensure a more maintanable and adaptable code:
+## Potential additional work:
+Due to time constraints, some good practices could not be implemented. Here is a non-exhaustive list of the the future work that could be done to ensure a more maintanable and adaptable code:
 1. **Implement testing:** unit testing for functions and modules, integration testing between different componenents of the code
-2. **Implement command-line argument parsing:** allowing for better adaptivity for the code. Being able to run more easily the code with different data, model, hyperparameters...
+2. **Implement command-line argument parsing:** allowing for better adaptivity for the code. Making it possible to run the code easily with different data, model, hyperparameters...
 3. **Implement configurations:** allows to quickly run the code with different configs 
 
 ## Feedback:
 
 ### Postive:
-- very interesting subject on a real-world situation
-- open objectives that allows to come up with our own implementation of the solution
-- easy to run notebooks and very manageable data
+- very interesting subject with a real-world application
+- open objectives that allow participants to come up with their own implementation of the solution
+- easy to run notebooks and manageable data
 
 ### Less positive:
-- hard not to spend more than 6 hours on it to give a more finished solution
+- staying within the 6h limit was tough, impacting the depth of the solution's completeness
