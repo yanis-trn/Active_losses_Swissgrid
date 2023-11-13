@@ -1,2 +1,4 @@
 # Ignore specific file
 df_base_trainval_preprocessed.csv
+*.pyc
+*.png

@@ -1,0 +1,60 @@
+.
+├── README.md
+├── __pycache__
+│   ├── parameter_tuning.cpython-311.pyc
+│   ├── pipeline.cpython-311.pyc
+│   ├── preprocessing.cpython-311.pyc
+│   ├── training.cpython-311.pyc
+│   ├── util.cpython-311.pyc
+│   └── visualization.cpython-311.pyc
+├── approach.md
+├── data
+│   ├── processed
+│   │   └── df_preprocessed.csv
+│   └── raw
+│       ├── Active-Losses.csv
+│       ├── NTC.csv
+│       ├── data_explanation.md
+│       ├── eq_renewables.csv
+│       └── eq_temp.csv
+├── environment.yml
+├── main.py
+├── notebooks
+│   ├── 0_Data Preprocessing Base.ipynb
+│   └── 2_ElasticNet.ipynb
+├── plots
+│   ├── line_plot_1.png
+│   ├── line_plot_2.png
+│   ├── line_plot_3.png
+│   ├── line_plot_4.png
+│   ├── line_plot_5.png
+│   ├── split_1.png
+│   ├── split_2.png
+│   ├── split_3.png
+│   ├── split_4.png
+│   └── split_5.png
+├── project_structure.txt
+├── saved_models
+│   ├── best_model_hyperparams.pickle
+│   ├── final_model.pickle
+│   ├── sklearn_base_pipeline_unfitted.pickle
+│   └── trials_tuning_optuna.csv
+├── src
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-311.pyc
+│   │   ├── parameter_tuning.cpython-311.pyc
+│   │   ├── pipeline.cpython-311.pyc
+│   │   ├── preprocessing.cpython-311.pyc
+│   │   ├── training.cpython-311.pyc
+│   │   ├── util.cpython-311.pyc
+│   │   └── visualization.cpython-311.pyc
+│   ├── parameter_tuning.py
+│   ├── pipeline.py
+│   ├── preprocessing.py
+│   ├── training.py
+│   ├── util.py
+│   └── visualization.py
+└── tree_structure.txt
+
+10 directories, 48 files

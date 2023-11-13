@@ -2,13 +2,11 @@
 This file contains functions for visualization.
 """
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import mean_absolute_error
 from sklearn.linear_model import ElasticNet
 from plotnine import *
-from IPython.display import clear_output, display
 import warnings
 
 

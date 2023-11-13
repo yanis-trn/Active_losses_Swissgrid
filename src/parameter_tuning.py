@@ -2,9 +2,7 @@
 This file contain objective function for hyperparameter tuning using optuna.
 """
 
-import optuna
-from sklearn.metrics import mean_absolute_error
-from training import train_and_evaluate_model
+from src.training import train_and_evaluate_model
 import pandas as pd
 import numpy as np
 import warnings

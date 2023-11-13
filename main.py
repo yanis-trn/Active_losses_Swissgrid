@@ -2,12 +2,12 @@
 Main file for the project
 """
 
-from util import load_processed_data, create_time_series_splits, analyze_optuna_study
-from training import train_final
-from preprocessing import preprocess_data
-from parameter_tuning import objective
-from pipeline import create_preprocessor
-from visualization import visualize_splits, visualize_model_predictions
+from src.util import load_processed_data, create_time_series_splits, analyze_optuna_study
+from src.training import train_final
+from src.preprocessing import preprocess_data
+from src.parameter_tuning import objective
+from src.pipeline import create_preprocessor
+from src.visualization import visualize_splits, visualize_model_predictions
 import optuna
 import pandas as pd
 

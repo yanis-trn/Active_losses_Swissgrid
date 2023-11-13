@@ -3,8 +3,7 @@ This file contains the training code for the model.
 """
 
 from sklearn.linear_model import ElasticNet
-from util import train_preprocessor, evaluate_model
-from visualization import visualize_predictions
+from src.util import train_preprocessor, evaluate_model
 from pickle import dump, load
 import pandas as pd
 
@@ -43,7 +42,7 @@ def train_and_evaluate_model(X_train, X_test, y_train, y_test, preprocessor, par
     :param y_test: test target
     :param preprocessor: preprocessor pipeline
     :param params: hyperparameters
-    :return: evaluation metric
+    :return: evaluation score and fitted model
     """
     fitted_preprocessor = train_preprocessor(X_train, preprocessor)
 
@@ -66,5 +65,5 @@ def train_and_evaluate_model(X_train, X_test, y_train, y_test, preprocessor, par
     # Calculate MAE for each fol
     evaluation_score = evaluate_model(y_test, y_pred)
 
-    return evaluation_score
+    return evaluation_score 
 
