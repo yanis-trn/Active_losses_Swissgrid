@@ -12,7 +12,7 @@ The proposed solution offers a more understandable and easy to use code that ach
 - loading of the data 
 - preprocessing of the data and addition of useful features (time, date, holidays, cyclical_features, lag features)
 - finetuning ElasticNet model 
-- visualizing of predictions over test data 
+- training of the model and visualization of predictions over test data 
 - training model on entire dataset with best hyperparameters and saving it for later use
 
 ## Installation
@@ -51,7 +51,7 @@ Python 3.11.5 was used for this project
 ```
 
 ## Stucture of the data folder
-For more details on the raw data refer to [data_explanation.md](https://github.com/yanis-trn/Active_losses_Swissgrid/blob/main/data/raw/data_explanation.md). For more details on preprocessed data refer to the preprocessing.py file.
+For more details on the raw data refer to [data_explanation.md](https://github.com/yanis-trn/Active_losses_Swissgrid/blob/main/data/raw/data_explanation.md). For more details on how the preprocessed data is obtained refer to the preprocessing.py file.
 ```
 ├── data
 │   ├── processed
@@ -64,6 +64,6 @@ For more details on the raw data refer to [data_explanation.md](https://github.c
 │       └── eq_temp.csv             <- forecast temperature (unit: °C)
 ```
 
-## Aditionnal visualization of the forecasting quality
+## Additionnal visualization of the forecasting quality
 In order for different stakeholders to realize and assess the quality of the forecasting an additionnal function (visualize_model_predictions) was added. It allows to easily save plots of the predictions from the ElasticNet model with the best hyperparameters. Such a plot is represented below:
-![Example image](plots/line_plot_3.png)
+![Example plot](plots/line_plot_3.png)
