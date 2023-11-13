@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
     # Hyperparameter tuning using Optuna
     study = optuna.create_study(direction='minimize')
-    study.optimize(lambda trial: objective(trial, X, y, preprocessor, splits), n_trials=2, timeout=3600*0.5)
+    study.optimize(lambda trial: objective(trial, X, y, preprocessor, splits), n_trials=50, timeout=3600*0.5)
 
     # Analyze Optuna study by outputing the numbeer of trials, the minimal MAE and the best hyperparameters
     analyze_optuna_study(study)
