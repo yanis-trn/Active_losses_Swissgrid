@@ -7,7 +7,7 @@ from src.training import train_final
 from src.preprocessing import preprocess_data
 from src.parameter_tuning import objective
 from src.pipeline import create_preprocessor
-from src.visualization import visualize_splits, visualize_model_predictions
+from src.visualization import visualize_splits, train_and_visualize_model_predictions
 import optuna
 import pandas as pd
 
@@ -32,16 +32,16 @@ if __name__ == '__main__':
     # Fit preprocessor on the entire dataset
     preprocessor = create_preprocessor(df)
 
-    # Hyperparameter tuning using Optuna
+    # Hyperparameter tuning using Optuna with model: ElasticNet
     study = optuna.create_study(direction='minimize')
     study.optimize(lambda trial: objective(trial, X, y, preprocessor, splits), n_trials=50, timeout=3600*0.5)
 
-    # Analyze Optuna study by outputing the numbeer of trials, the minimal MAE and the best hyperparameters
+    # Analyze Optuna study by outputting the number of trials, the minimal MAE and the best hyperparameters
     analyze_optuna_study(study)
 
-    # Visualize the prediction of the model on the testing data with the best hyperparameters
-    visualize_model_predictions(splits, X, y, preprocessor, study.best_params)
+    # training ElasticNet on training data with the best hyperparameters and evaluating the model on test data
+    train_and_visualize_model_predictions(splits, X, y, preprocessor, study.best_params)
     
-    # Train the final model with the best hyperparameters on the entire dataset. And save it in saved_models for later use
+    # Train the final model with the best hyperparameters on the entire dataset. And save it in /saved_models for later use
     final_model = train_final(X, y, preprocessor, study.best_params)
     

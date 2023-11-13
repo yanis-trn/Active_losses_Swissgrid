@@ -72,7 +72,7 @@ def visualize_splits(splits, df, y):
             # display(p)
     print("Plots of splits saved to plots/ folder.")
 
-def visualize_model_predictions(splits, X, y, preprocessor, params):
+def train_and_visualize_model_predictions(splits, X, y, preprocessor, params):
     """
     This function visualizes the model predictions.
     :param splits: splits
