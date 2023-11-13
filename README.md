@@ -63,5 +63,5 @@ For more details on the raw data refer to [data_explanation.md](https://github.c
 ```
 
 ## Additionnal visualization of the forecasting quality
-In order for different stakeholders to realize and assess the quality of the forecasting an additionnal function (visualize_model_predictions) was added. It allows to easily save plots of the predictions from the ElasticNet model with the best hyperparameters. Such a plot is represented below:
+In order for different stakeholders to realize and assess the quality of the forecasting an additionnal function (train_and_visualize_model_predictions) was added. It allows to easily save plots of the predictions from the ElasticNet model with the best hyperparameters. Such a plot is represented below:
 ![Example plot](plots/line_plot_3.png)
