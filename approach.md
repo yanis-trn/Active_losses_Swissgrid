@@ -14,30 +14,30 @@
 
 ## Main good practices to follow:
 
-### 1. Setting up a virtual environment 
+### 1.Setting up a virtual environment 
 Allows to manage project dependencies and packages properly. An environment.yaml file is created for easily exporting the active_loss virtual environment.
 
-### 2. Setting up version control
+### 2.Setting up version control
 Setting up of a git repository with best parctices, including rergular commits with relevant messages.
 
-### 3. Code structure
+### 3.Code structure
 **file structure:** establishing a clear and intuitive file structure with related files grouped together.
 **modularization:** Brezk down the previous notebook code into modular compenents. The goal is to improve code organization, readibility and reusability
 
-### 4. Code documentation
+### 4.Code documentation
 **comments in the code:** ensure that the main different steps in the code are commented and write small description for each function, class for easier understanding 
 **README.py** it should: describe the project, explain how to set up the virtual env and showcase the structure of the code / data
 
-### 5. Implement logging
+### 5.Implement logging
 Ensure to save important metrics, models, hyperparameters and other relevant details. 
 Output informational messages during the execution of the program for better undesrtanding and debugging
 
 ## Features added:
 
-### FeatureEngineer class:
+### FeatureEngineer() class:
 Writting the FeatureEngineer class allowed better encapsulation of all functions (methods) for the creation of the different new features (time, dates, lags...). Defining all the methods in the same class gives a better understanding of all the features added and enables more modularrity in the future.
 
-### visualize_model_predictions(splits, X, y, preprocessor, params) function:
+### visualize_model_predictions() function:
 Different stakeholders being higly interested in the predictions from this model implementation I felt like it was missing a simple function to visualize the accuracy of the forecast from the model. Once the splits are obtained from the preprocessed data and the preprocessor trained, the fucntion does the following:
 - train a ElasticNet model using the previously best found hyperparameters
 - get the prediction from the testing data
