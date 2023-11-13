@@ -33,21 +33,26 @@ Ensure to save important metrics, models, hyperparameters and other relevant det
 Output informational messages during the execution of the program for better undesrtanding and debugging
 
 ## ML frameworks:
-
-TODO
+Here are the main steps of this ML project and the used librairies:
+- preprocessing the data and adding useful features using numpy, panda and skimpy
+- creating a preprocessing pipeline sklearn
+- creating time series split using sklearn
+- hyperparameter tuning using optuna and ElasticNet model
+- training ElasticNet on training data with the best hyperparameters and visualizing output on test data
+- training the final model with the best hyperparameters on the entire dataset for later use
 
 ## Features added:
 
 ### FeatureEngineer() class:
 Writting the FeatureEngineer class allowed better encapsulation of all functions (methods) for the creation of the different new features (time, dates, lags...). Defining all the methods in the same class gives a better understanding of all the features added and enables more modularrity in the future.
 
-### visualize_model_predictions() function:
-Different stakeholders being higly interested in the predictions from this model implementation I felt like it was missing a simple function to visualize the accuracy of the forecast from the model. Once the splits are obtained from the preprocessed data and the preprocessor trained, the fucntion does the following:
+### train_and_visualize_model_predictions() function:
+Different stakeholders being higly interested in the predictions from this model it appears that a simple function to visualize the accuracy of the forecast from the model could be useful. Once the splits are obtained from the preprocessed data and the preprocessor trained, the fucntion does the following:
 - train a ElasticNet model using the previously best found hyperparameters
 - get the prediction from the testing data
 - plot the active loss predictions and true historical value 
 - save those plots to /plots folder
-Here is an example of plot:
+Here is an example of obtained plot:
 ![Example plot](plots/line_plot_3.png)
 
 ## Potential additional work:
